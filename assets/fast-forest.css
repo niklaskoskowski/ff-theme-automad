@@ -1062,6 +1062,76 @@ textarea.ff-form__input { resize: vertical; min-height: 5.5rem; }
 .ff-admin__table thead th { font-size: .78rem; letter-spacing: .08em; text-transform: uppercase; color: var(--ff-ink-soft); }
 .ff-admin__table--detail th { width: 38%; color: var(--ff-ink-soft); font-weight: 600; }
 .ff-btn--danger { --_bg: #b3261e; --_fg: #fff; }
+.ff-admin .ff-btn { margin-left: auto; }
+
+.ff-form__closed { margin-top: 2rem; padding: 1.5rem 1.75rem; border-left: 4px solid var(--ff-accent); background: var(--ff-paper-2); font-size: 1.1rem; }
+
+/* Recruiting admin page (recruiting_admin.php) */
+.ff-main--wide > .ff-container { --am-block-max-width: 76rem; }
+.ff-rec-admin { display: grid; gap: 1.5rem; }
+.ff-rec-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(7.5rem, 1fr)); gap: .75rem; }
+.ff-rec-stat {
+	display: grid;
+	gap: .15rem;
+	padding: .9rem 1rem;
+	border: 1px solid var(--ff-line);
+	border-top: 4px solid var(--_c, var(--ff-ink));
+	border-radius: var(--ff-radius);
+	background: var(--ff-paper);
+	color: inherit;
+	text-decoration: none;
+	transition: box-shadow .2s;
+}
+.ff-rec-stat b { font-size: 1.7rem; line-height: 1; }
+.ff-rec-stat span { font-size: .78rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--ff-ink-soft); }
+.ff-rec-stat:hover { box-shadow: 0 .4rem 1.2rem rgba(2, 2, 2, .08); }
+.ff-rec-stat.is-active { background: var(--ff-paper-2); box-shadow: inset 0 0 0 2px var(--_c, var(--ff-ink)); }
+.ff-rec-stat--neu, .ff-status--neu { --_c: #1f6feb; }
+.ff-rec-stat--kontaktiert, .ff-status--kontaktiert { --_c: #9a6700; }
+.ff-rec-stat--eingeladen, .ff-status--eingeladen { --_c: #8250df; }
+.ff-rec-stat--angenommen, .ff-status--angenommen { --_c: #3f7d0a; }
+.ff-rec-stat--abgelehnt, .ff-status--abgelehnt { --_c: #b3261e; }
+.ff-rec-filters { display: flex; flex-wrap: wrap; align-items: center; gap: .6rem; }
+.ff-rec-filters .ff-form__input { width: auto; flex: 1 1 11rem; padding: .55rem .75rem; font-size: .92rem; }
+.ff-rec-filters input[type="search"] { flex: 2 1 16rem; }
+.ff-rec-reset { font-size: .9rem; font-weight: 600; }
+.ff-rec-export { margin-left: auto; }
+.ff-rec-table tbody tr:hover { background: var(--ff-paper-2); }
+.ff-rec-table tr.is-new td:first-child { box-shadow: inset 3px 0 0 #1f6feb; padding-left: .6rem; }
+.ff-rec-table td:first-child, .ff-rec-table th:first-child { padding-left: .6rem; }
+.ff-rec-table small { color: var(--ff-ink-soft); }
+.ff-rec-table a { text-decoration: none; }
+.ff-status {
+	padding: .35rem 1.8rem .35rem .6rem;
+	font: inherit;
+	font-size: .85rem;
+	font-weight: 700;
+	color: var(--_c, var(--ff-ink));
+	background: var(--ff-paper) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M1 1l4 4 4-4' fill='none' stroke='%235b6470' stroke-width='1.5'/%3E%3C/svg%3E") no-repeat right .6rem center;
+	border: 1px solid currentColor;
+	border-radius: 99px;
+	appearance: none;
+	cursor: pointer;
+}
+.ff-rec-detail { display: grid; grid-template-columns: minmax(0, 1fr) 18rem; gap: 2rem; align-items: start; }
+.ff-rec-detail__main h2 { margin: 0; }
+.ff-rec-detail__side { position: sticky; top: calc(var(--ff-navbar-h) + 1rem); display: grid; gap: .6rem; padding: 1.25rem; border: 1px solid var(--ff-line); border-radius: var(--ff-radius); background: var(--ff-paper-2); }
+.ff-rec-detail__side .ff-form__label { margin: .4rem 0 0; }
+.ff-rec-detail__side p { margin: 0; }
+.ff-rec-detail__side .ff-status { justify-self: start; }
+.ff-rec-saved { font-size: .85rem; color: var(--ff-ink-soft); }
+@media (max-width: 52rem) {
+	.ff-rec-detail { grid-template-columns: 1fr; }
+	.ff-rec-detail__side { position: static; }
+	.ff-rec-table thead { display: none; }
+	.ff-rec-table, .ff-rec-table tbody, .ff-rec-table tr, .ff-rec-table td { display: block; }
+	.ff-rec-table tr { padding: .75rem 0; border-bottom: 1px solid var(--ff-line); }
+	.ff-rec-table td { padding: .2rem .6rem; border: 0; }
+	.ff-rec-table td::before { content: attr(data-label); display: block; font-size: .72rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--ff-ink-soft); }
+	.ff-rec-table tr.is-new td:first-child { box-shadow: none; }
+	.ff-rec-table tr.is-new { box-shadow: inset 3px 0 0 #1f6feb; }
+	.ff-rec-export { margin-left: 0; }
+}
 
 /* ---------- Photo grid ---------- */
 .ff-photo-grid {

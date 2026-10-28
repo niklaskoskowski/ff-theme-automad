@@ -5,8 +5,8 @@ ff_rec_handle($Automad);
 ?>
 <# Fast Forest – Bewerbungsformular
 Einleitung im Feld "Inhalt" (+main), darunter das Formular, danach "+outro".
-Eingeloggte Nutzer sehen oben die Bewerbungen (Übersicht, Details, CSV-Export).
-Empfänger, Betreff der Bestätigung und Erfolgsmeldung in den Seiteneinstellungen.
+Eingeloggte Nutzer sehen oben einen Link zur Bewerbungsverwaltung (Template recruiting_admin).
+Einstellungen (Phase offen/zu, Empfänger, Texte, Optionen, Fragen ausblenden) in den Seiteneinstellungen.
 Mailversand nutzt die Mail-Einstellungen des Dashboards (System → E-Mail).
 #>
 <@~ components/base.php ~@>
@@ -23,4 +23,4 @@ Mailversand nutzt die Mail-Einstellungen des Dashboards (System → E-Mail).
 		</div>
 	</main>
 <@~ end ~@>
-<# @{ textRecruitingTo } @{ textRecruitingConfirmSubject } @{ textRecruitingSuccess } #>
+<# @{ checkboxRecruitingClosed } @{ textRecruitingClosed } @{ textRecruitingTo } @{ textRecruitingConfirmSubject } @{ textRecruitingConfirmText } @{ textRecruitingSuccess } @{ textRecruitingOptionsBereiche } @{ textRecruitingOptionsZeit } @{ textRecruitingOptionsAbschluss } @{ textRecruitingHidden } @{ textRecruitingOptional } @{ urlRecruitingAdmin } #>

@@ -193,6 +193,40 @@
 		loadChallenge();
 	}
 
+	/* Recruiting admin: status and notes */
+	const adminPost = (fields) => {
+		const data = new FormData();
+		Object.entries(fields).forEach(([k, v]) => data.append(k, v));
+		return fetch(window.location.pathname, { method: 'POST', body: data, credentials: 'same-origin' }).then((r) => r.json());
+	};
+
+	document.querySelectorAll('[data-ff-status-select]').forEach((select) => {
+		select.addEventListener('change', () => {
+			select.disabled = true;
+			adminPost({ ff_action: 'status', id: select.dataset.ffStatusSelect, status: select.value })
+				.then((res) => {
+					if (!res.ok) throw new Error(res.error || 'Fehler');
+					select.className = `ff-status ff-status--${select.value}`;
+					select.closest('tr')?.classList.toggle('is-new', select.value === 'neu');
+				})
+				.catch((err) => window.alert(`Status konnte nicht gespeichert werden: ${err.message}`))
+				.finally(() => { select.disabled = false; });
+		});
+	});
+
+	document.querySelectorAll('[data-ff-note-save]').forEach((btn) => {
+		const field = document.querySelector(`[data-ff-note="${btn.dataset.ffNoteSave}"]`);
+		const saved = btn.parentElement.querySelector('[data-ff-saved]');
+		btn.addEventListener('click', () => {
+			btn.disabled = true;
+			adminPost({ ff_action: 'note', id: btn.dataset.ffNoteSave, note: field.value })
+				.then((res) => { saved.textContent = res.ok ? 'Gespeichert ✓' : 'Fehler beim Speichern'; })
+				.catch(() => { saved.textContent = 'Fehler beim Speichern'; })
+				.finally(() => { btn.disabled = false; });
+		});
+		field?.addEventListener('input', () => { saved.textContent = 'Nicht gespeichert'; });
+	});
+
 	/* Recruiting admin: delete entry */
 	document.querySelectorAll('[data-ff-delete]').forEach((btn) => {
 		btn.addEventListener('click', () => {

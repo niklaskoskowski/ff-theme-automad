@@ -31,13 +31,13 @@ listed here so the dashboard shows them on every page:
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="theme-color" content="#020202">
 	<link rel="preload" href="/packages/@{ theme }/assets/fonts/saira-latin-standard-normal.woff2" as="font" type="font/woff2" crossorigin>
-	<link rel="stylesheet" href="/packages/@{ theme }/assets/fast-forest.css?v=1.3.0">
+	<link rel="stylesheet" href="/packages/@{ theme }/assets/fast-forest.css?v=1.4.0">
 	<style>
 		:root {
 			--ff-accent: @{ colorAccent | def ('#9bc31c') };
 		}
 	</style>
-	<script src="/packages/@{ theme }/assets/fast-forest.js?v=1.3.0" defer></script>
+	<script src="/packages/@{ theme }/assets/fast-forest.js?v=1.4.0" defer></script>
 </head>
 <body class="ff ff--@{ template | sanitize }">
 	<a class="ff-skip" href="#inhalt">Zum Inhalt springen</a>

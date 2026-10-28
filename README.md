@@ -8,7 +8,9 @@ Hochladen nach `packages/fastforest/fast-forest/`, dann Dashboard → Einstellun
 - **page_no_header** – ohne Bildkopf (Impressum, Datenschutz)
 - **news** – Übersicht der Unterseiten mit Paginierung
 - **post** – News-Beitrag mit Datum und Zurück-Link
-- **recruiting_form** – Bewerbungsformular (Felder wie das alte WP-Formular). Bewerbungen werden gespeichert (bevorzugt außerhalb des Web-Ordners in `../ff-recruiting-data`, sonst `config/ff-recruiting`), per Mail an den Empfänger geschickt (Seiteneinstellung, Standard niklas.koskowski@fast-forest.de) und mit Bestätigung an Bewerber. Eingeloggte Nutzer sehen auf der Seite Übersicht, Details, Löschen und CSV-Export. Mailversand über Dashboard → System → E-Mail. Spam-Schutz: Lockfeld, Mindestzeit, Rechenaufgabe, max. 5 Bewerbungen/Stunde pro IP.
+- **recruiting_form** – Bewerbungsformular (Felder wie das alte WP-Formular). Bewerbungen werden gespeichert (bevorzugt außerhalb des Web-Ordners in `../ff-recruiting-data`, sonst `config/ff-recruiting`), per Mail an den Empfänger geschickt (Standard niklas.koskowski@fast-forest.de) und mit Bestätigung an Bewerber. Mailversand über Dashboard → System → E-Mail. Spam-Schutz: Lockfeld, Mindestzeit, Rechenaufgabe, max. 5 Bewerbungen/Stunde pro IP.
+  Einstellungen in den Seiteneinstellungen: Bewerbungsphase offen/zu + Hinweis, Empfänger, Betreff/Text der Bestätigung, Erfolgsmeldung, Auswahllisten (Bereiche, Zeiten, Abschluss; eine Option pro Zeile), Fragen ausblenden bzw. optional machen (Kennungen siehe Tooltip).
+- **recruiting_admin** – Bewerbungsverwaltung (Seite als *privat* anlegen, z. B. `/bewerbungen`): Kennzahlen pro Status, Suche, Filter (Bereich, Abschluss, Status), CSV-Export der Auswahl, Detailansicht mit Status, interner Notiz, Mail-Button und Löschen.
 - **sponsors** – Einleitung + je Stufe ein Blockfeld (`+platin`, `+gold`, `+silber`, `+bronze`, `+partner`). Jeder Block (Bild oder Abschnitt mit Logo + Text) wird eine Kachel im Raster; leere Stufen werden ausgeblendet.
 
 ## Blöcke
