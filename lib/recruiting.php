@@ -16,6 +16,8 @@
 defined('AUTOMAD') or die('Direct access not permitted!');
 
 if (!function_exists('ff_rec_fields')) {
+	define('FF_REC_DEFAULT_TO', 'niklas.koskowski@fast-forest.de');
+
 	function ff_rec_fields(): array {
 		$yesNo = array('Ja // Yes', 'Nein // No');
 
@@ -616,7 +618,7 @@ if (!function_exists('ff_rec_fields')) {
 			ff_rec_write(ff_rec_dir() . "/entry-$id.php", $entry);
 
 			$name = trim($values['vorname'] . ' ' . $values['nachname']);
-			$to = $get('textRecruitingTo', 'info@fast-forest.de');
+			$to = $get('textRecruitingTo', FF_REC_DEFAULT_TO);
 			$adminUrl = AM_SERVER . AM_BASE_INDEX . $Page->get('url') . '?bewerbungen=' . $id;
 
 			$sentTeam = ff_rec_send(
@@ -647,7 +649,7 @@ if (!function_exists('ff_rec_fields')) {
 			ff_rec_json(array('ok' => true, 'message' => $get('textRecruitingSuccess', 'Danke für deine Bewerbung! Du bekommst gleich eine Bestätigung per E-Mail. // Thank you for your application! You will receive a confirmation by email shortly.')));
 		} catch (\Throwable $e) {
 			error_log('Fast Forest recruiting: ' . $e->getMessage());
-			ff_rec_json(array('error' => 'Technischer Fehler, bitte versuche es später erneut oder schreib an info@fast-forest.de. // Technical error, please try again later or write to info@fast-forest.de.'), 500);
+			ff_rec_json(array('error' => 'Technischer Fehler, bitte versuche es später erneut oder schreib an ' . FF_REC_DEFAULT_TO . '. // Technical error, please try again later or write to ' . FF_REC_DEFAULT_TO . '.'), 500);
 		}
 	}
 }
