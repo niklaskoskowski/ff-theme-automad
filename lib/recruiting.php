@@ -440,18 +440,149 @@ function ff_rec_mail_table(array $values): string {
 	return '<table style="border-collapse:collapse;font:14px/1.5 Arial,sans-serif;width:100%">' . $rows . '</table>';
 }
 
+// Sender address of the Automad mail settings (Dashboard → System → E-Mail).
+function ff_rec_mail_from(): string {
+	$from = '';
+
+	if (class_exists('\Automad\Models\MailConfig')) {
+		try {
+			$from = (new \Automad\Models\MailConfig())->from;
+		} catch (\Throwable $e) {
+			$from = '';
+		}
+	}
+
+	if (!filter_var($from, FILTER_VALIDATE_EMAIL)) {
+		$host = preg_replace('/^www\./', '', strval($_SERVER['SERVER_NAME'] ?? 'localhost'));
+		$from = 'noreply@' . $host;
+	}
+
+	return $from;
+}
+
+function ff_rec_mail_transport(): string {
+	return defined('AM_MAIL_TRANSPORT') && AM_MAIL_TRANSPORT ? strval(AM_MAIL_TRANSPORT) : 'sendmail';
+}
+
+// Keeps the last 30 mail results (no contents) for the diagnostics on the admin page.
+function ff_rec_mail_log(string $to, string $via, bool $ok, string $error = ''): void {
+	try {
+		$file = ff_rec_dir() . '/maillog.php';
+		$log = ff_rec_read($file) ?: array();
+		$domain = substr(strrchr($to, '@') ?: '', 1);
+		array_unshift($log, array('time' => date('c'), 'to' => '…@' . $domain, 'via' => $via, 'ok' => $ok, 'error' => mb_substr($error, 0, 300)));
+		ff_rec_write($file, array_slice($log, 0, 30));
+	} catch (\Throwable $e) {
+	}
+}
+
+// Plain PHP mail() through the sendmail_path of the hosting (works without proc_open).
+function ff_rec_send_native(string $to, string $subject, string $html, ?string $replyTo): bool {
+	if (!function_exists('mail')) {
+		return false;
+	}
+
+	$from = ff_rec_mail_from();
+	$headers = array(
+		'From: =?UTF-8?B?' . base64_encode('Fast Forest e.V.') . '?= <' . $from . '>',
+		'MIME-Version: 1.0',
+		'Content-Type: text/html; charset=UTF-8',
+		'Content-Transfer-Encoding: base64',
+		'X-Mailer: Fast Forest Website'
+	);
+
+	if ($replyTo && filter_var($replyTo, FILTER_VALIDATE_EMAIL)) {
+		$headers[] = 'Reply-To: ' . $replyTo;
+	}
+
+	$subject = '=?UTF-8?B?' . base64_encode($subject) . '?=';
+	$body = chunk_split(base64_encode('<!DOCTYPE html><html><body>' . $html . '</body></html>'));
+	$params = preg_match('/^[\w.+-]+@[\w.-]+$/', $from) ? '-f' . $from : '';
+
+	return @mail($to, $subject, $body, implode("\r\n", $headers), $params);
+}
+
 function ff_rec_send(string $to, string $subject, string $body, ?string $replyTo): bool {
-	if (!class_exists('\Automad\System\Mail')) {
+	if (!filter_var($to, FILTER_VALIDATE_EMAIL)) {
 		return false;
 	}
 
 	$html = '<div style="font:15px/1.6 Arial,sans-serif;color:#111;max-width:640px">' . $body . '</div>';
+	$error = '';
+
+	// 1. Automad mailer (SMTP or sendmail as configured in the dashboard).
+	if (class_exists('\Automad\System\Mail')) {
+		try {
+			if (\Automad\System\Mail::send($to, $subject, $html, $replyTo)) {
+				ff_rec_mail_log($to, 'automad-' . ff_rec_mail_transport(), true);
+
+				return true;
+			}
+
+			$error = 'Automad-Mailer (' . ff_rec_mail_transport() . ') fehlgeschlagen';
+		} catch (\Throwable $e) {
+			$error = $e->getMessage();
+		}
+	}
+
+	// 2. Fallback: PHP mail(), e.g. when proc_open is disabled for sendmail -bs.
+	$ok = ff_rec_send_native($to, $subject, $html, $replyTo);
+	ff_rec_mail_log($to, 'php-mail', $ok, $ok ? '' : ($error ? "$error; mail() fehlgeschlagen" : 'mail() fehlgeschlagen'));
+
+	return $ok;
+}
+
+// Admin diagnostics: checks the mail setup without sending anything.
+function ff_rec_render_mail_status(): string {
+	$disabled = array_map('trim', explode(',', strval(ini_get('disable_functions'))));
+	$procOpen = function_exists('proc_open') && !in_array('proc_open', $disabled, true);
+	$mail = function_exists('mail') && !in_array('mail', $disabled, true);
+	$transport = ff_rec_mail_transport();
+	$sendmailPath = strval(ini_get('sendmail_path'));
+	$bin = '/usr/sbin/sendmail';
+	$binOk = @is_executable($bin);
+
+	$rows = array(
+		array('Versandart im Dashboard', $transport === 'smtp' ? 'SMTP' : 'sendmail', true),
+		array('Absender', ff_rec_mail_from(), true),
+		array('Empfänger Benachrichtigung', ff_rec_config()['to'] ?? FF_REC_DEFAULT_TO, true)
+	);
+
+	if ($transport !== 'smtp') {
+		$rows[] = array('proc_open (für Automad-Sendmail)', $procOpen ? 'verfügbar' : 'deaktiviert – es wird PHP mail() genutzt', $procOpen);
+		$rows[] = array($bin, $binOk || !$procOpen ? ($binOk ? 'vorhanden' : 'nicht prüfbar') : 'nicht gefunden', $binOk || !$procOpen);
+	}
+
+	$rows[] = array('PHP mail() (Rückfallebene)', $mail ? 'verfügbar' . ($sendmailPath ? " ($sendmailPath)" : '') : 'deaktiviert', $mail);
+
+	$html = '<details class="ff-rec-mail"><summary>Mail-Status</summary><table class="ff-admin__table ff-admin__table--detail">';
+
+	foreach ($rows as $r) {
+		$html .= '<tr><th>' . ff_rec_t($r[0]) . '</th><td>' . ($r[2] ? '✅ ' : '⚠️ ') . ff_rec_t($r[1]) . '</td></tr>';
+	}
+
+	$html .= '</table>';
 
 	try {
-		return \Automad\System\Mail::send($to, $subject, $html, $replyTo);
+		$log = ff_rec_read(ff_rec_dir() . '/maillog.php') ?: array();
 	} catch (\Throwable $e) {
-		return false;
+		$log = array();
 	}
+
+	if ($log) {
+		$html .= '<p class="ff-form__label">Letzte Mails</p><table class="ff-admin__table">';
+
+		foreach (array_slice($log, 0, 10) as $l) {
+			$html .= '<tr><td>' . ff_rec_t(date('d.m.Y H:i', strtotime($l['time']))) . '</td><td>' . ff_rec_t($l['to']) . '</td><td>' . ff_rec_t($l['via']) . '</td><td>'
+				. ($l['ok'] ? '✅ gesendet' : '⚠️ ' . ff_rec_t($l['error'])) . '</td></tr>';
+		}
+
+		$html .= '</table>';
+	} else {
+		$html .= '<p>Noch keine Mails verschickt.</p>';
+	}
+
+	return $html . '<p class="ff-form__help">„Gesendet“ heißt: vom Server angenommen. Landet nichts im Postfach, Spam-Ordner und SPF/DKIM der Absender-Domain prüfen.</p></details>';
 }
 
 function ff_rec_json(array $data, int $code = 200): void {
@@ -784,7 +915,7 @@ function ff_rec_render_admin_page($Automad): string {
 		? '<div class="ff-admin__scroll"><table class="ff-admin__table ff-rec-table"><thead><tr><th>Datum</th><th>Name</th><th>Studium</th><th>Bereiche</th><th>Status</th></tr></thead><tbody>' . $rows . '</tbody></table></div>'
 		: '<p>' . ($all ? 'Keine Bewerbungen für diesen Filter.' : 'Noch keine Bewerbungen.') . '</p>';
 
-	return '<div class="am-block ff-rec-admin">' . $stats . $filters . $table . '</div>';
+	return '<div class="am-block ff-rec-admin">' . $stats . $filters . $table . ff_rec_render_mail_status() . '</div>';
 }
 
 function ff_rec_render_admin_detail(string $id, string $url): string {
