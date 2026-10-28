@@ -344,6 +344,8 @@ p { margin: 0; text-wrap: pretty; }
 }
 .ff-navbar.is-solid::before { opacity: 0; }
 .ff-navbar.is-hidden { transform: translateY(-100%); }
+/* backdrop-filter/transform would make the navbar the containing block of the fixed mobile menu and clip it */
+.ff-navbar.is-menu-open { background: var(--ff-black); backdrop-filter: none; transform: none; }
 
 .ff-navbar__inner {
 	position: relative;
@@ -508,7 +510,6 @@ p { margin: 0; text-wrap: pretty; }
 		transition: opacity .25s, transform .25s var(--ff-ease), visibility .25s;
 	}
 	.ff-navbar.is-menu-open .ff-nav { opacity: 1; visibility: visible; transform: none; }
-	.ff-navbar.is-menu-open { background: var(--ff-black); }
 	.ff-navbar.is-menu-open::before { opacity: 0; }
 
 	.ff-nav__list { flex-direction: column; align-items: stretch; gap: 0; }
