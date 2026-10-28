@@ -789,9 +789,10 @@ p { margin: 0; text-wrap: pretty; }
 /* ---------- Tiles ---------- */
 .ff-tiles {
 	display: grid;
-	grid-template-columns: repeat(auto-fill, minmax(min(100%, 10rem), 1fr));
+	grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr));
 	gap: .75rem;
 }
+.am-stretched .ff-tiles { max-width: 76rem; margin-inline: auto; }
 .ff-tile {
 	position: relative;
 	display: block;
