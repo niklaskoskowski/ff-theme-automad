@@ -53,14 +53,18 @@
 				&copy; @{ :now | dateFormat ('Y') } @{ sitename }
 			<@~ end ~@>
 		</span>
-		<# @{ selectFooterLink } #>
-		<@ newPagelist { excludeHidden: false, match: '{ "selectFooterLink": "/show/" }', sort: ':index asc' } @>
-		<@ if @{ :pagelistCount } @>
-			<nav class="ff-footer__links" aria-label="Rechtliches">
-				<@ foreach in pagelist ~@>
+		<# Footer links: pages with "Im Footer verlinken" plus all pages using the page_no_header template (Impressum, Datenschutz). @{ selectFooterLink } #>
+		<nav class="ff-footer__links" aria-label="Rechtliches">
+			<@ newPagelist { excludeHidden: false, match: '{ "template": "/^page_no_header$/" }', sort: ':index asc' } @>
+			<@ foreach in pagelist ~@>
+				<@ if not @{ selectFooterLink } ~@>
 					<a href="@{ url }">@{ title }</a>
 				<@~ end @>
-			</nav>
-		<@ end @>
+			<@~ end @>
+			<@ newPagelist { excludeHidden: false, match: '{ "selectFooterLink": "/show/" }', sort: ':index asc' } @>
+			<@ foreach in pagelist ~@>
+				<a href="@{ url }">@{ title }</a>
+			<@~ end @>
+		</nav>
 	</div>
 </footer>

@@ -3,7 +3,7 @@
   "description": "Theme für Fast Forest e.V. – Formula Student Team Deggendorf. Dunkle Hero-Bereiche, Akzent Limettengrün, Saira (self-hosted).",
   "author": "Fast Forest e.V.",
   "license": "MIT",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "masks": {
     "page": [
       "brand",
@@ -43,10 +43,12 @@
       "textNewsSubtitle",
       "numberPostsPerPage",
       "selectFooterLink",
-      "checkboxHideChildrenInNav"
+      "checkboxHideChildrenInNav",
+      "+hero"
     ]
   },
   "fieldOrder": [
+    "+hero",
     "textHeroEyebrow",
     "textHeroTitle",
     "textHeroSubtitle",
@@ -122,7 +124,8 @@
     "urlYoutube": "YouTube",
     "urlVimeo": "Vimeo",
     "textCopyright": "Copyright-Zeile (leer = © Jahr Sitename)",
-    "checkboxHideChildrenInNav": "Unterseiten nicht im Menü aufklappen"
+    "checkboxHideChildrenInNav": "Unterseiten nicht im Menü aufklappen",
+    "+hero": "Seitenkopf / Hero (erstes Bild = Hintergrund, Text und Buttons erscheinen unter dem Titel)"
   },
   "options": {
     "selectFooterLink": {
@@ -131,8 +134,9 @@
   },
   "tooltips": {
     "imageHeader": "Wird in den globalen Einstellungen gesetzt als Standard für alle Seiten verwendet.",
-    "+contact": "Wird nur auf der Startseite angezeigt.",
+    "+contact": "Wird nur auf der Startseite angezeigt. Ein Bild darin wird zum Hintergrundbild.",
     "colorAccent": "Standard: #9bc31c",
-    "checkboxHideChildrenInNav": "Seiten mit dem Template \"news\" klappen nie auf."
+    "checkboxHideChildrenInNav": "Seiten mit dem Template \"news\" klappen nie auf.",
+    "+hero": "Erstes Bild wird Hintergrundbild. Überschrift 6 wird als kleine grüne Zeile dargestellt. Eine Überschrift 1 ersetzt auf der Startseite den Seitentitel."
   }
 }

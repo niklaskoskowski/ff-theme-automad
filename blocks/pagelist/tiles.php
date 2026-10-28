@@ -2,7 +2,7 @@
 <div class="ff-tiles">
 	<@ foreach in pagelist @>
 		<@ set { :ffTeaser: false } @>
-		<@ set { :ffTeaser: @{ imageTeaser | def (@{ +main | findFirstImage }) | def (@{ imageHeader }) } } @>
+		<@ set { :ffTeaser: @{ imageTeaser | def (@{ +hero | findFirstImage }) | def (@{ +main | findFirstImage }) | def (@{ imageHeader }) } } @>
 		<a class="ff-tile" href="@{ url }" style="--ff-i: @{ :i }">
 			<@~ with @{ :ffTeaser } { width: 800, height: 534, crop: true } ~@>
 				<img src="@{ :fileResized }" alt="" loading="lazy" width="@{ :widthResized }" height="@{ :heightResized }">

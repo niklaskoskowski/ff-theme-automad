@@ -1089,3 +1089,111 @@ p { margin: 0; text-wrap: pretty; }
 	.ff-hero__bg, .ff-banner__bg, .ff-hero::before, .ff-banner::before { display: none; }
 	.ff-hero__title, .ff-banner__title { color: #000; text-shadow: none; }
 }
+
+/* ---------- Hero / banner content from the +hero block field ---------- */
+.ff-hero__blocks,
+.ff-banner__blocks {
+	--am-block-max-width: 100%;
+	--am-block-margin-top: 1.1rem;
+	--am-button-justify: center;
+	color: var(--ff-on-dark);
+}
+.ff-banner__blocks { --am-button-justify: flex-start; max-width: 46rem; }
+.ff-hero__blocks > :first-child,
+.ff-banner__blocks > :first-child { margin-top: 0; }
+.ff-hero__title + .ff-hero__blocks { margin-top: 1.4rem; }
+.ff-banner__title + .ff-banner__blocks { margin-top: .9rem; }
+
+.ff-hero__blocks p,
+.ff-banner__blocks p {
+	font-size: clamp(1.02rem, 1rem + .35vw, 1.25rem);
+	max-width: 40rem;
+}
+.ff-hero__blocks p { margin-left: auto; margin-right: auto; }
+.ff-hero__blocks a:not([class]),
+.ff-banner__blocks a:not([class]) { color: #fff; text-decoration-color: var(--ff-accent); text-underline-offset: .2em; }
+
+.ff-hero__blocks h1 {
+	color: #fff;
+	font-size: clamp(2.6rem, 1.4rem + 6vw, 6.25rem);
+	font-weight: 900;
+	font-stretch: 112%;
+	line-height: .98;
+	letter-spacing: -.02em;
+	text-transform: uppercase;
+	text-shadow: 0 4px 40px rgba(0, 0, 0, .4);
+}
+.ff-hero__blocks h2, .ff-hero__blocks h3, .ff-hero__blocks h4, .ff-hero__blocks h5,
+.ff-banner__blocks h2, .ff-banner__blocks h3, .ff-banner__blocks h4, .ff-banner__blocks h5 { color: #fff; }
+
+/* Heading 6 = eyebrow line */
+.ff-hero__blocks h6,
+.ff-banner__blocks h6,
+.ff-main h6.ff-eyebrow-like {
+	display: inline-flex;
+	align-items: center;
+	gap: .6em;
+	font-size: .85rem;
+	font-weight: 700;
+	font-stretch: 115%;
+	letter-spacing: .14em;
+	text-transform: uppercase;
+	color: var(--ff-accent);
+}
+.ff-hero__blocks h6::before,
+.ff-banner__blocks h6::before {
+	content: '';
+	width: 1.6rem; height: 3px;
+	background: currentColor;
+	transform: skewX(-24deg);
+}
+
+/* Buttons block inside hero/banner gets the slanted theme look */
+.ff-hero__blocks .am-button,
+.ff-banner__blocks .am-button,
+.ff-contact .am-button {
+	--_bg: var(--ff-accent);
+	--_fg: var(--ff-accent-ink);
+	padding: .85em 1.6em;
+	border: 0;
+	border-radius: 0;
+	background: var(--_bg);
+	color: var(--_fg);
+	font-weight: 700;
+	font-stretch: 110%;
+	letter-spacing: .04em;
+	text-transform: uppercase;
+	clip-path: polygon(var(--ff-slant) 0, 100% 0, calc(100% - var(--ff-slant)) 100%, 0 100%);
+	transition: background-color .2s, color .2s;
+}
+.ff-hero__blocks .am-button:hover,
+.ff-banner__blocks .am-button:hover,
+.ff-contact .am-button:hover { --_bg: #fff; --_fg: var(--ff-black); border: 0; }
+.ff-hero__blocks .am-button + .am-button,
+.ff-banner__blocks .am-button + .am-button { --_bg: rgba(255, 255, 255, .12); --_fg: #fff; }
+
+/* Team member grids (layout sections with image + name + role) */
+.ff-main .am-layout-section figure img { aspect-ratio: auto; }
+.ff-main h4 + p,
+.ff-main h5 + p { margin-top: .2em !important; color: var(--ff-ink-soft); }
+
+/* Eyebrow (h6) from +hero is lifted above the title */
+.ff-hero__content,
+.ff-banner__content { display: flex; flex-direction: column; }
+.ff-hero__content { align-items: center; }
+.ff-banner__content { align-items: flex-start; }
+.ff-hero__blocks,
+.ff-banner__blocks { display: contents; }
+.ff-hero__blocks > *,
+.ff-banner__blocks > * { margin-top: 1.1rem; }
+.ff-hero__blocks h6,
+.ff-banner__blocks h6 { order: -1; margin: 0 0 1rem; }
+.ff-hero__blocks h1 { order: -1; margin-top: 0; }
+.ff-hero__blocks h6 + h1 { order: -1; }
+.ff-hero .ff-eyebrow, .ff-banner .ff-eyebrow { order: -2; }
+.ff-hero__blocks am-buttons { justify-content: center !important; margin-top: 2rem; }
+.ff-banner__blocks am-buttons { justify-content: flex-start !important; margin-top: 1.5rem; }
+.ff-banner__blocks p { max-width: 46rem; }
+.ff-hero__blocks > * { width: auto; max-width: min(100%, 62rem); margin-left: auto; margin-right: auto; }
+.ff-hero__blocks h6 { justify-content: center; }
+.ff-banner__blocks > * { width: auto; max-width: min(100%, 46rem); margin-left: 0; margin-right: 0; }

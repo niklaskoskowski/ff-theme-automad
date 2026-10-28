@@ -1,8 +1,8 @@
 <# Fast Forest – news/page card. Used inside "foreach in pagelist". #>
 <@~ set { :ffTeaser: false } ~@>
-<@~ set { :ffTeaser: @{ imageTeaser | def (@{ +main | findFirstImage }) | def (@{ imageHeader }) } } ~@>
+<@~ set { :ffTeaser: @{ imageTeaser | def (@{ +hero | findFirstImage }) | def (@{ +main | findFirstImage }) | def (@{ imageHeader }) } } ~@>
 <@~ set { :ffExcerpt: false } ~@>
-<@~ set { :ffExcerpt: @{ textTeaser | def (@{ +main | findFirstParagraph | stripTags }) } } ~@>
+<@~ set { :ffExcerpt: @{ textTeaser | def (@{ +hero | findFirstParagraph | stripTags }) | def (@{ +main | findFirstParagraph | stripTags }) } } ~@>
 <article class="ff-card" style="--ff-i: @{ :i }">
 	<a class="ff-card__media" href="@{ url }" tabindex="-1" aria-hidden="true">
 		<@~ with @{ :ffTeaser } { width: 800, height: 534, crop: true } ~@>
