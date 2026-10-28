@@ -1,0 +1,19 @@
+{
+  "name": "fastforest/fast-forest",
+  "description": "Theme für Fast Forest e.V. – Formula Student Team Deggendorf",
+  "type": "automad-package",
+  "keywords": [
+    "automad",
+    "theme"
+  ],
+  "authors": [
+    {
+      "name": "Fast Forest e.V.",
+      "homepage": "https://www.fast-forest.de"
+    }
+  ],
+  "license": "MIT",
+  "require": {
+    "automad/package-installer": "^1.1 || dev-master"
+  }
+}
