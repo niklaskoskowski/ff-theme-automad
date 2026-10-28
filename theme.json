@@ -3,7 +3,7 @@
   "description": "Theme für Fast Forest e.V. – Formula Student Team Deggendorf. Dunkle Hero-Bereiche, Akzent Limettengrün, Saira (self-hosted).",
   "author": "Fast Forest e.V.",
   "license": "MIT",
-  "version": "1.1.1",
+  "version": "1.2.0",
   "masks": {
     "page": [
       "brand",
@@ -44,7 +44,18 @@
       "numberPostsPerPage",
       "selectFooterLink",
       "checkboxHideChildrenInNav",
-      "+hero"
+      "+hero",
+      "+platin",
+      "textTierPlatin",
+      "+gold",
+      "textTierGold",
+      "+silber",
+      "textTierSilber",
+      "+bronze",
+      "textTierBronze",
+      "+partner",
+      "textTierPartner",
+      "+outro"
     ]
   },
   "fieldOrder": [
@@ -58,6 +69,17 @@
     "textSubtitle",
     "imageHeader",
     "+main",
+    "+platin",
+    "textTierPlatin",
+    "+gold",
+    "textTierGold",
+    "+silber",
+    "textTierSilber",
+    "+bronze",
+    "textTierBronze",
+    "+partner",
+    "textTierPartner",
+    "+outro",
     "checkboxHideNews",
     "textNewsTitle",
     "textNewsSubtitle",
@@ -125,7 +147,18 @@
     "urlVimeo": "Vimeo",
     "textCopyright": "Copyright-Zeile (leer = © Jahr Sitename)",
     "checkboxHideChildrenInNav": "Unterseiten nicht im Menü aufklappen",
-    "+hero": "Seitenkopf / Hero (erstes Bild = Hintergrund, Text und Buttons erscheinen unter dem Titel)"
+    "+hero": "Seitenkopf / Hero (erstes Bild = Hintergrund, Text und Buttons erscheinen unter dem Titel)",
+    "+platin": "Sponsoren: Platin (Logo + Text)",
+    "textTierPlatin": "Sponsoren: Überschrift Platin (leer = „Platin Partner“)",
+    "+gold": "Sponsoren: Gold (Logo + Text)",
+    "textTierGold": "Sponsoren: Überschrift Gold (leer = „Gold Partner“)",
+    "+silber": "Sponsoren: Silber (Logos)",
+    "textTierSilber": "Sponsoren: Überschrift Silber (leer = „Silber Partner“)",
+    "+bronze": "Sponsoren: Bronze (Logos)",
+    "textTierBronze": "Sponsoren: Überschrift Bronze (leer = „Bronze Partner“)",
+    "+partner": "Sponsoren: Partner (Logos)",
+    "textTierPartner": "Sponsoren: Überschrift Partner (leer = „Partner“)",
+    "+outro": "Sponsoren: Inhalt unter den Logos"
   },
   "options": {
     "selectFooterLink": {
@@ -137,6 +170,7 @@
     "+contact": "Wird nur auf der Startseite angezeigt. Ein Bild darin wird zum Hintergrundbild.",
     "colorAccent": "Standard: #9bc31c",
     "checkboxHideChildrenInNav": "Seiten mit dem Template \"news\" klappen nie auf.",
-    "+hero": "Erstes Bild wird Hintergrundbild. Überschrift 6 wird als kleine grüne Zeile dargestellt. Eine Überschrift 1 ersetzt auf der Startseite den Seitentitel."
+    "+hero": "Erstes Bild wird Hintergrundbild. Überschrift 6 wird als kleine grüne Zeile dargestellt. Eine Überschrift 1 ersetzt auf der Startseite den Seitentitel.",
+    "+platin": "Jeder Block wird eine Kachel: Bild-Block (Logo, Link in den Bild-Einstellungen) oder Abschnitt mit Logo + Text. Gilt für alle Stufen."
   }
 }

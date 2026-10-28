@@ -8,6 +8,7 @@ Hochladen nach `packages/fastforest/fast-forest/`, dann Dashboard → Einstellun
 - **page_no_header** – ohne Bildkopf (Impressum, Datenschutz)
 - **news** – Übersicht der Unterseiten mit Paginierung
 - **post** – News-Beitrag mit Datum und Zurück-Link
+- **sponsors** – Einleitung + je Stufe ein Blockfeld (`+platin`, `+gold`, `+silber`, `+bronze`, `+partner`). Jeder Block (Bild oder Abschnitt mit Logo + Text) wird eine Kachel im Raster; leere Stufen werden ausgeblendet.
 
 ## Blöcke
 - Pagelist: `cards` (News), `tiles` (Fahrzeuge/Departments/Teams), `list`

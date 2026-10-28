@@ -789,10 +789,11 @@ p { margin: 0; text-wrap: pretty; }
 /* ---------- Tiles ---------- */
 .ff-tiles {
 	display: grid;
-	grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr));
+	grid-template-columns: repeat(auto-fill, minmax(min(100%, 14rem), 1fr));
 	gap: .75rem;
+	max-width: var(--am-block-max-width);
+	margin-inline: auto;
 }
-.am-stretched .ff-tiles { max-width: 76rem; margin-inline: auto; }
 .ff-tile {
 	position: relative;
 	display: block;
@@ -889,6 +890,70 @@ p { margin: 0; text-wrap: pretty; }
 	transition: filter .3s, opacity .3s;
 }
 .ff-logo:hover img { filter: none; opacity: 1; }
+
+/* ---------- Sponsor grid (sponsors.php: one block field per tier) ---------- */
+.ff-sponsor-tier { margin-top: 3.5rem; }
+.ff-sponsor-tier__title {
+	display: flex;
+	align-items: center;
+	gap: 1rem;
+	margin: 0 0 1.25rem;
+	font-size: 1.05rem;
+	letter-spacing: .14em;
+	text-transform: uppercase;
+}
+.ff-sponsor-tier__title::after { content: ''; flex: 1; height: 1px; background: var(--ff-line); }
+.ff-sponsors {
+	--ff-sponsor-min: 10rem;
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(min(100%, var(--ff-sponsor-min)), 1fr));
+	gap: 1rem;
+	align-items: stretch;
+}
+.ff-sponsors--platin, .ff-sponsors--gold { --ff-sponsor-min: 16rem; }
+.ff-sponsors--silber { --ff-sponsor-min: 12rem; }
+/* Width tunes and flex rows set in the editor are ignored: every block is one cell. */
+.ff-sponsors > :is(am-flex, am-stretched),
+.ff-sponsors > am-flex > :is(am-1-4, am-1-3, am-1-2, am-2-3, am-3-4, am-1-1) { display: contents; }
+.ff-sponsors > :is(figure, section),
+.ff-sponsors :is(am-1-4, am-1-3, am-1-2, am-2-3, am-3-4, am-1-1, am-stretched) > :is(figure, section) {
+	margin: 0 !important;
+	max-width: none !important;
+	width: auto !important;
+	padding: 1.25rem;
+	background: var(--ff-paper);
+	border: 1px solid var(--ff-line);
+	border-radius: var(--ff-radius);
+	transition: border-color .25s, box-shadow .25s;
+}
+.ff-sponsors > :is(figure, section):hover,
+.ff-sponsors :is(am-1-4, am-1-3, am-1-2, am-2-3, am-3-4, am-1-1, am-stretched) > :is(figure, section):hover {
+	border-color: var(--ff-accent);
+	box-shadow: 0 .5rem 1.5rem rgba(2, 2, 2, .08);
+}
+.ff-sponsors section am-layout-section { display: flex; flex-direction: column; gap: .75rem; padding: 0; background: none; }
+.ff-sponsors section am-layout-section > * { margin: 0 !important; }
+.ff-sponsors figure { display: grid; place-items: center; }
+.ff-sponsors figure :is(img, am-img-loader) {
+	display: block;
+	width: 100%;
+	aspect-ratio: 3 / 2;
+	object-fit: contain;
+	border-radius: 0 !important;
+}
+.ff-sponsors figure figcaption { margin-top: .75rem; font-size: .9rem; text-align: center; }
+.ff-sponsors p { font-size: .92rem; line-height: 1.55; color: var(--ff-ink-soft); }
+.ff-sponsors--bronze figure, .ff-sponsors--partner figure { padding: .75rem 1rem; }
+
+/* ---------- Team members (layout sections with photo, name, role) ---------- */
+.ff--page .ff-main am-flex > * > section > am-layout-section > figure:first-child :is(img, am-img-loader) {
+	aspect-ratio: 4 / 5;
+	object-fit: cover;
+	object-position: 50% 25%;
+}
+
+/* ---------- Image slideshow ---------- */
+.ff-main am-image-slideshow { border-radius: var(--ff-radius); overflow: hidden; }
 
 /* ---------- Photo grid ---------- */
 .ff-photo-grid {
