@@ -69,6 +69,8 @@
 	--am-container-padding: clamp(1.1rem, 4vw, 2.5rem);
 	--am-flex-gap: clamp(1rem, 2.5vw, 2rem);
 	--am-flex-min-block-width: 14rem;
+	--am-paragraph-large-font-size: clamp(1.15rem, 1rem + .6vw, 1.4rem);
+	--am-paragraph-large-line-height: 1.5;
 
 	/* Automad block styling */
 	--am-border-color: var(--ff-line);
@@ -891,6 +893,14 @@ p { margin: 0; text-wrap: pretty; }
 	transition: filter .3s, opacity .3s;
 }
 .ff-logo:hover img { filter: none; opacity: 1; }
+
+/* ---------- Layout sections on small screens ---------- */
+/* Automad only wraps columns at their min width, which leaves half-width text columns on phones. */
+@media (max-width: 48rem) {
+	am-flex > :is(am-1-2, am-1-3, am-2-3, am-3-4) { flex-basis: 100%; flex-grow: 1; }
+	am-flex > am-1-4 { flex-basis: 50%; flex-grow: 1; min-width: 0; }
+	.ff-main :is(p, li, h1, h2, h3, h4) { hyphens: auto; overflow-wrap: break-word; }
+}
 
 /* ---------- Sponsor grid (sponsors.php: one block field per tier) ---------- */
 .ff-sponsor-tier { margin-top: 3.5rem; }
