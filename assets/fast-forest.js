@@ -85,6 +85,130 @@
 
 	onScroll();
 
+	/* Recruiting form (recruiting_form.php) */
+	const form = document.querySelector('[data-ff-recruiting]');
+
+	if (form) {
+		const status = form.querySelector('[data-ff-status]');
+		const question = form.querySelector('[data-ff-question]');
+		const button = form.querySelector('button[type="submit"]');
+		const post = (data) => fetch(window.location.pathname, {
+			method: 'POST',
+			body: data,
+			credentials: 'same-origin',
+			headers: { Accept: 'application/json' }
+		}).then((r) => r.json());
+
+		const loadChallenge = () => {
+			const data = new FormData();
+			data.append('ff_action', 'challenge');
+			post(data).then((res) => {
+				question.textContent = res.question;
+				form.elements.ff_token.value = res.token;
+				form.elements.ff_answer.value = '';
+			}).catch(() => {
+				question.textContent = 'Rechenaufgabe konnte nicht geladen werden, bitte Seite neu laden. // Please reload the page.';
+			});
+		};
+
+		const setError = (name, message) => {
+			const el = form.querySelector(`[data-ff-error="${name}"]`);
+			if (!el) return;
+			el.textContent = message || '';
+			el.closest('.ff-form__field')?.classList.toggle('is-invalid', Boolean(message));
+		};
+
+		const clearErrors = () => form.querySelectorAll('[data-ff-error]').forEach((el) => setError(el.dataset.ffError, ''));
+
+		const validate = () => {
+			let first = null;
+			clearErrors();
+
+			form.querySelectorAll('[data-ff-required-group]').forEach((group) => {
+				if (!group.querySelector('input:checked')) {
+					const name = group.querySelector('input').name.replace('[]', '');
+					setError(name, 'Bitte mindestens eine Option wählen. // Please choose at least one option.');
+					first = first || group.querySelector('input');
+				}
+			});
+
+			form.querySelectorAll('input, select, textarea').forEach((el) => {
+				if (!el.name || el.name.endsWith('[]') || el.checkValidity()) return;
+				setError(el.name, el.type === 'email' && el.value ? 'Bitte gib eine gültige E-Mail-Adresse an. // Please enter a valid email address.' : 'Pflichtfeld // Required');
+				first = first || el;
+			});
+
+			return first;
+		};
+
+		form.addEventListener('change', (e) => {
+			const name = e.target.name?.replace('[]', '');
+			if (name) setError(name, '');
+		});
+
+		form.addEventListener('submit', (e) => {
+			e.preventDefault();
+			status.textContent = '';
+			status.className = 'ff-form__status';
+
+			const invalid = validate();
+
+			if (invalid) {
+				invalid.closest('.ff-form__field')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+				invalid.focus({ preventScroll: true });
+				status.textContent = 'Bitte prüfe die markierten Felder. // Please check the marked fields.';
+				status.classList.add('is-error');
+				return;
+			}
+
+			const data = new FormData(form);
+			data.append('ff_action', 'submit');
+			button.disabled = true;
+			form.classList.add('is-busy');
+
+			post(data).then((res) => {
+				if (res.ok) {
+					form.reset();
+					form.classList.add('is-sent');
+					status.textContent = res.message || '';
+					status.classList.add('is-success');
+					status.scrollIntoView({ behavior: 'smooth', block: 'center' });
+					return;
+				}
+
+				Object.entries(res.fields || {}).forEach(([name, message]) => setError(name, message));
+				if (res.field) setError(res.field, res.error);
+				status.textContent = res.error || 'Fehler // Error';
+				status.classList.add('is-error');
+				if (res.field === 'ff_answer' || !res.fields) loadChallenge();
+			}).catch(() => {
+				status.textContent = 'Senden fehlgeschlagen, bitte später erneut versuchen. // Sending failed, please try again later.';
+				status.classList.add('is-error');
+			}).finally(() => {
+				button.disabled = false;
+				form.classList.remove('is-busy');
+			});
+		});
+
+		loadChallenge();
+	}
+
+	/* Recruiting admin: delete entry */
+	document.querySelectorAll('[data-ff-delete]').forEach((btn) => {
+		btn.addEventListener('click', () => {
+			if (!window.confirm('Diese Bewerbung endgültig löschen?')) return;
+			const data = new FormData();
+			data.append('ff_action', 'delete');
+			data.append('id', btn.dataset.ffDelete);
+			fetch(window.location.pathname, { method: 'POST', body: data, credentials: 'same-origin' })
+				.then((r) => r.json())
+				.then((res) => {
+					if (res.ok) window.location.href = btn.dataset.ffBack;
+					else window.alert(res.error || 'Fehler');
+				});
+		});
+	});
+
 	/* Reveal cards and tiles on scroll */
 	if ('IntersectionObserver' in window && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
 		const items = document.querySelectorAll('.ff-card, .ff-tile');

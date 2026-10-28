@@ -3,7 +3,7 @@
   "description": "Theme für Fast Forest e.V. – Formula Student Team Deggendorf. Dunkle Hero-Bereiche, Akzent Limettengrün, Saira (self-hosted).",
   "author": "Fast Forest e.V.",
   "license": "MIT",
-  "version": "1.2.2",
+  "version": "1.3.0",
   "masks": {
     "page": [
       "brand",
@@ -55,7 +55,10 @@
       "textTierBronze",
       "+partner",
       "textTierPartner",
-      "+outro"
+      "+outro",
+      "textRecruitingTo",
+      "textRecruitingConfirmSubject",
+      "textRecruitingSuccess"
     ]
   },
   "fieldOrder": [
@@ -80,6 +83,9 @@
     "+partner",
     "textTierPartner",
     "+outro",
+    "textRecruitingTo",
+    "textRecruitingConfirmSubject",
+    "textRecruitingSuccess",
     "checkboxHideNews",
     "textNewsTitle",
     "textNewsSubtitle",
@@ -158,7 +164,10 @@
     "textTierBronze": "Sponsoren: Überschrift Bronze (leer = „Bronze Partner“)",
     "+partner": "Sponsoren: Partner (Logos)",
     "textTierPartner": "Sponsoren: Überschrift Partner (leer = „Partner“)",
-    "+outro": "Sponsoren: Inhalt unter den Logos"
+    "+outro": "Inhalt unter Logos bzw. Formular",
+    "textRecruitingTo": "Bewerbungsformular: Empfänger der Benachrichtigung (leer = info@fast-forest.de)",
+    "textRecruitingConfirmSubject": "Bewerbungsformular: Betreff der Bestätigung an Bewerber",
+    "textRecruitingSuccess": "Bewerbungsformular: Meldung nach dem Absenden"
   },
   "options": {
     "selectFooterLink": {
@@ -171,6 +180,7 @@
     "colorAccent": "Standard: #9bc31c",
     "checkboxHideChildrenInNav": "Seiten mit dem Template \"news\" klappen nie auf.",
     "+hero": "Erstes Bild wird Hintergrundbild. Überschrift 6 wird als kleine grüne Zeile dargestellt. Eine Überschrift 1 ersetzt auf der Startseite den Seitentitel.",
-    "+platin": "Jeder Block wird eine Kachel: Bild-Block (Logo, Link in den Bild-Einstellungen) oder Abschnitt mit Logo + Text. Gilt für alle Stufen."
+    "+platin": "Jeder Block wird eine Kachel: Bild-Block (Logo, Link in den Bild-Einstellungen) oder Abschnitt mit Logo + Text. Gilt für alle Stufen.",
+    "textRecruitingTo": "E-Mails werden über die Mail-Einstellungen des Dashboards verschickt (System → E-Mail). Bewerbungen werden zusätzlich gespeichert und sind für eingeloggte Nutzer oben auf der Formularseite einsehbar."
   }
 }
