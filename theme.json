@@ -3,7 +3,7 @@
   "description": "Theme für Fast Forest e.V. – Formula Student Team Deggendorf. Dunkle Hero-Bereiche, Akzent Limettengrün, Saira (self-hosted).",
   "author": "Fast Forest e.V.",
   "license": "MIT",
-  "version": "1.5.1",
+  "version": "1.5.2",
   "masks": {
     "page": [
       "brand",

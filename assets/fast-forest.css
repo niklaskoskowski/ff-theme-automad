@@ -740,6 +740,9 @@ p { margin: 0; text-wrap: pretty; }
 	gap: clamp(1.25rem, 2.5vw, 2rem);
 }
 .ff-section .ff-container { --am-block-max-width: 76rem; }
+/* Home: content as wide as the navbar (logo to last menu item) */
+.ff--home .ff-container { --am-block-max-width: calc(90rem - 2 * var(--am-container-padding)); }
+.ff--home .ff-tiles { grid-template-columns: repeat(auto-fill, minmax(min(100%, 17rem), 1fr)); }
 
 .ff-card {
 	position: relative;
@@ -1287,7 +1290,7 @@ textarea.ff-form__input { resize: vertical; min-height: 5.5rem; }
 	display: grid;
 	grid-template-columns: minmax(12rem, 1fr) 3fr;
 	gap: 2.5rem 4rem;
-	max-width: 80rem;
+	max-width: 90rem;
 	margin: 0 auto;
 	padding: clamp(3rem, 6vw, 4.5rem) var(--am-container-padding);
 }
@@ -1331,7 +1334,7 @@ textarea.ff-form__input { resize: vertical; min-height: 5.5rem; }
 	flex-wrap: wrap;
 	justify-content: space-between;
 	gap: .75rem 2rem;
-	max-width: 80rem;
+	max-width: 90rem;
 	margin: 0 auto;
 	padding: 1.25rem var(--am-container-padding) 1.75rem;
 	border-top: 1px solid rgba(255, 255, 255, .08);
