@@ -743,6 +743,13 @@ p { margin: 0; text-wrap: pretty; }
 /* Home: content as wide as the navbar (logo to last menu item) */
 .ff--home .ff-container { --am-block-max-width: calc(90rem - 2 * var(--am-container-padding)); }
 .ff--home .ff-tiles { grid-template-columns: repeat(auto-fill, minmax(min(100%, 17rem), 1fr)); }
+/* Home news: 4 in a row on desktop, 2×2 on tablets, the first 3 stacked on phones */
+.ff--home .ff-cards { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+@media (max-width: 75rem) { .ff--home .ff-cards { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 40rem) {
+	.ff--home .ff-cards { grid-template-columns: 1fr; }
+	.ff--home .ff-cards > :nth-child(n + 4) { display: none; }
+}
 
 /* Home: two text-only half columns side by side become CTA cards (team = dark, partners = light) */
 .ff--home .ff-main am-flex:not(:has(figure, am-pagelist, am-img-loader, img)):has(> am-1-2 + am-1-2) { align-items: stretch !important; }

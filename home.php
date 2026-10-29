@@ -38,7 +38,7 @@
 			type: 'children',
 			context: @{ :ffNewsUrl },
 			sort: 'date desc',
-			limit: @{ numberNewsCount | def (3) }
+			limit: @{ numberNewsCount | def (4) }
 		} @>
 		<@ if @{ :pagelistCount } @>
 			<section class="ff-section ff-section--muted" aria-labelledby="ff-news-title">
