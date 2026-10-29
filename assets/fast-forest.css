@@ -903,7 +903,32 @@ p { margin: 0; text-wrap: pretty; }
 }
 
 /* ---------- Sponsor grid (sponsors.php: one block field per tier) ---------- */
-.ff-sponsor-tier { margin-top: 3.5rem; }
+.ff-sponsor-tier { max-width: var(--am-block-max-width); margin: 3.5rem auto 0; }
+/* Description text: clamped, expandable via the "[…]" button (fast-forest.js) */
+.ff-sponsor__text { position: relative; display: grid; gap: .6rem; }
+.ff-sponsor__text > * { margin: 0 !important; }
+.ff-sponsor__text.is-clamped { max-height: calc(1.55em * 4); overflow: hidden; }
+.ff-sponsor__text.is-clamped::after {
+	content: '';
+	position: absolute;
+	inset: auto 0 0 0;
+	height: 1.6em;
+	background: linear-gradient(transparent, var(--ff-paper));
+}
+.ff-sponsor__more {
+	align-self: flex-start;
+	justify-self: start;
+	padding: 0;
+	font: inherit;
+	font-size: .9rem;
+	font-weight: 700;
+	color: var(--ff-ink);
+	background: none;
+	border: 0;
+	cursor: pointer;
+}
+.ff-sponsor__more:hover { color: #5d7a00; }
+.ff-sponsor__link { font-size: .9rem; font-weight: 700; }
 .ff-sponsor-tier__title {
 	display: flex;
 	align-items: center;

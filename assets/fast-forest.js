@@ -85,6 +85,39 @@
 
 	onScroll();
 
+	/* Sponsor tiles: clamp description, "[…]" expands */
+	document.querySelectorAll('.ff-sponsors section am-layout-section').forEach((tile) => {
+		const isLink = (el) => {
+			const a = el.querySelector('a');
+			return a && el.textContent.trim() === a.textContent.trim();
+		};
+		const texts = [...tile.children].filter((el) => el.matches('p, ul, ol') && !isLink(el));
+		tile.querySelectorAll(':scope > p').forEach((el) => { if (isLink(el)) el.classList.add('ff-sponsor__link'); });
+		if (!texts.length) return;
+
+		const wrap = document.createElement('div');
+		wrap.className = 'ff-sponsor__text is-clamped';
+		texts[0].before(wrap);
+		texts.forEach((el) => wrap.append(el));
+
+		if (wrap.scrollHeight <= wrap.clientHeight + 4) {
+			wrap.classList.remove('is-clamped');
+			return;
+		}
+
+		const btn = document.createElement('button');
+		btn.type = 'button';
+		btn.className = 'ff-sponsor__more';
+		btn.textContent = '[…]';
+		btn.setAttribute('aria-expanded', 'false');
+		btn.addEventListener('click', () => {
+			const open = wrap.classList.toggle('is-clamped') === false;
+			btn.textContent = open ? 'weniger' : '[…]';
+			btn.setAttribute('aria-expanded', String(open));
+		});
+		wrap.after(btn);
+	});
+
 	/* Recruiting form (recruiting_form.php) */
 	const form = document.querySelector('[data-ff-recruiting]');
 
