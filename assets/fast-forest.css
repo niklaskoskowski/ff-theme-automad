@@ -1470,3 +1470,5 @@ textarea.ff-form__input { resize: vertical; min-height: 5.5rem; }
 .ff-rec-mail { margin-top: 1rem; padding: 1rem 1.25rem; border: 1px solid var(--ff-line); border-radius: var(--ff-radius); background: var(--ff-paper-2); }
 .ff-rec-mail summary { font-weight: 700; cursor: pointer; }
 .ff-rec-mail table { margin-top: .75rem; }
+
+img.ff-svg { display: block; width: 100%; height: auto; }
