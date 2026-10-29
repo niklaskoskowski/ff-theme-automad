@@ -620,8 +620,10 @@ p { margin: 0; text-wrap: pretty; }
 .ff-hero--plain::before { display: none; }
 
 .ff-hero__content {
+	/* Same left edge as the logo: navbar inner is 90rem incl. container padding */
 	width: 100%;
-	max-width: 44rem;
+	max-width: calc(90rem - 2 * var(--am-container-padding));
+	margin: 0 auto;
 	animation: ff-rise .9s var(--ff-ease) both .1s;
 }
 .ff-hero__title {
@@ -645,7 +647,7 @@ p { margin: 0; text-wrap: pretty; }
 
 .ff-hero__scroll {
 	position: absolute;
-	right: var(--am-container-padding); bottom: 2rem;
+	right: max(var(--am-container-padding), calc((100% - 90rem) / 2 + var(--am-container-padding))); bottom: 2rem;
 	width: 2.6rem; height: 2.6rem;
 	border-radius: 50%;
 	border: 2px solid rgba(255, 255, 255, .35);
@@ -1466,6 +1468,7 @@ textarea.ff-form__input { resize: vertical; min-height: 5.5rem; }
 .ff-hero__content,
 .ff-banner__content { display: flex; flex-direction: column; }
 .ff-hero__content { align-items: flex-start; }
+.ff-hero__content > :not(.ff-hero__blocks, .ff-hero__title) { max-width: min(100%, 44rem); }
 .ff-banner__content { align-items: flex-start; }
 .ff-hero__blocks,
 .ff-banner__blocks { display: contents; }
