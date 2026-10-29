@@ -744,6 +744,45 @@ p { margin: 0; text-wrap: pretty; }
 .ff--home .ff-container { --am-block-max-width: calc(90rem - 2 * var(--am-container-padding)); }
 .ff--home .ff-tiles { grid-template-columns: repeat(auto-fill, minmax(min(100%, 17rem), 1fr)); }
 
+/* Home: two text-only half columns side by side become CTA cards (team = dark, partners = light) */
+.ff--home .ff-main am-flex:not(:has(figure, am-pagelist, am-img-loader, img)):has(> am-1-2 + am-1-2) { align-items: stretch !important; }
+.ff--home .ff-main am-flex:not(:has(figure, am-pagelist, am-img-loader, img)):has(> am-1-2 + am-1-2) > am-1-2 { display: flex; flex-direction: column; }
+.ff--home .ff-main am-flex:not(:has(figure, am-pagelist, am-img-loader, img)):has(> am-1-2 + am-1-2) > am-1-2 > section { flex: 1; }
+.ff--home .ff-main am-flex:not(:has(figure, am-pagelist, am-img-loader, img)):has(> am-1-2 + am-1-2) > am-1-2 > section {
+	height: 100%;
+	margin: 0;
+	max-width: none;
+	padding: clamp(1.75rem, 3vw, 2.75rem);
+	border-radius: var(--ff-radius);
+	background: var(--ff-paper-2);
+	border-top: 4px solid var(--ff-accent);
+}
+.ff--home .ff-main am-flex:not(:has(figure, am-pagelist, am-img-loader, img)):has(> am-1-2 + am-1-2) > am-1-2:first-child > section {
+	background:
+		repeating-linear-gradient(-64deg, transparent 0 46px, rgba(155, 195, 28, .06) 46px 48px),
+		var(--ff-black);
+	color: var(--ff-on-dark);
+}
+.ff--home .ff-main am-flex:not(:has(figure, am-pagelist, am-img-loader, img)):has(> am-1-2 + am-1-2) > am-1-2:first-child > section :is(h2, h3) { color: #fff; }
+.ff--home .ff-main am-flex:not(:has(figure, am-pagelist, am-img-loader, img)):has(> am-1-2 + am-1-2) > am-1-2 > section > am-layout-section {
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+}
+.ff--home .ff-main am-flex:not(:has(figure, am-pagelist, am-img-loader, img)):has(> am-1-2 + am-1-2) > am-1-2 > section :is(h2, h3) {
+	margin-top: 0;
+	font-size: clamp(1.5rem, 1.1rem + 1.2vw, 2.1rem);
+}
+.ff--home .ff-main am-flex:not(:has(figure, am-pagelist, am-img-loader, img)):has(> am-1-2 + am-1-2) > am-1-2 > section am-buttons {
+	margin-top: auto;
+	padding-top: 1.5rem;
+}
+.ff--home .ff-main am-flex:not(:has(figure, am-pagelist, am-img-loader, img)):has(> am-1-2 + am-1-2) > am-1-2:last-child > section .am-button + .am-button {
+	background: transparent;
+	color: var(--ff-ink);
+	border-color: var(--ff-ink);
+}
+
 .ff-card {
 	position: relative;
 	display: flex;

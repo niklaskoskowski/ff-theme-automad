@@ -85,6 +85,11 @@
 
 	onScroll();
 
+	/* Internal links open in the same tab (Automad sets target="_blank" on buttons by default) */
+	document.querySelectorAll('a[target="_blank"]').forEach((a) => {
+		if (a.host === window.location.host) a.removeAttribute('target');
+	});
+
 	/* Sponsor tiles: clamp description, "[…]" expands */
 	document.querySelectorAll('.ff-sponsors section am-layout-section').forEach((tile) => {
 		const isLink = (el) => {
