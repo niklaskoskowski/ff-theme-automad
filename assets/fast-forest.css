@@ -647,8 +647,9 @@ p { margin: 0; text-wrap: pretty; }
 
 .ff-hero__scroll {
 	position: absolute;
-	right: max(var(--am-container-padding), calc((100% - 90rem) / 2 + var(--am-container-padding))); bottom: 2rem;
+	left: 50%; bottom: 2rem;
 	width: 2.6rem; height: 2.6rem;
+	margin-left: -1.3rem;
 	border-radius: 50%;
 	border: 2px solid rgba(255, 255, 255, .35);
 	transition: border-color .2s;
